@@ -1,0 +1,7 @@
+all:
+  children:
+    Retail:
+      children:
+        INB_RET-MEGHDHOOT_WEB:
+          hosts:
+            10.177.129.94

@@ -1,0 +1,27 @@
+---
+- name: Deployment of Dynatrace oneagent  - main playbook
+  hosts: all
+  become: yes
+  vars_files:
+    - vars/dynatrace_vars.yml
+
+  tasks:
+    - name: Verify installation
+      ansible.builtin.command:
+        cmd: /opt/dynatrace/oneagent/agent/initscripts/oneagent status
+      register: install_status
+      ignore_errors: yes
+
+    - name: Uninstall oneagent on remote node
+      include_tasks: tasks/uninstall_oneagent.yml
+      when: "'Dynatrace' in install_status.stdout"
+      register: uninstall_status
+
+    - name: Download oneagent to local directory if does not exist
+      include_tasks: tasks/download_oneagent.yml
+
+    - name: Transfer or copy the oneagent to remotenode
+      include_tasks: tasks/transfer_oneagent.yml
+
+    - name: Install oneagent on remote node
+      include_tasks: tasks/install_oneagent.yml

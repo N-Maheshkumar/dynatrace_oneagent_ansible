@@ -1,0 +1,6 @@
+---
+- name: Transfer installer
+  ansible.builtin.copy:
+    src: "{{ oneagent_installer_path }}"
+    dest: "{{ oneagent_installer_remotenode_path }}"
+    mode: "0644"

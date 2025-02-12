@@ -1,0 +1,13 @@
+---
+# Set environment variables
+oneagent_environment_url: "https://yfk56919.live.dynatrace.com"
+oneagent_token: "dt0c01.JHNDGLI4SSVYC5GYP7XOGANK.UFLNVFV5KTK35WC627LZ6VSU33OGXQ3HCALUVX23HM7BRXMAOUBGBEMPK4TJOIQO"
+
+# Set local installer location
+oneagent_local_installer: ""
+
+# Set the OneAgent download directory
+oneagent_installer: "/tmp/dynatrace_oneagent_installer_latest.sh"
+
+# Set remote node path to save oneagent
+oneagent_remote_path: "/tmp/dynatrace_oneagent_installer_latest.sh"

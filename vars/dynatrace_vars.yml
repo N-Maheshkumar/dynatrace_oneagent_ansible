@@ -1,0 +1,19 @@
+---
+# Set environment variables
+oneagent_environment_url: "https://yfk56919.live.dynatrace.com/api/v1/deployment/installer/agent/unix/default/latest?flavor=default&arch=all&bitness=all&skipMetadata=false"
+oneagent_token: "Api-Token dt0c01.JHNDGLI4SSVYC5GYP7XOGANK.UFLNVFV5KTK35WC627LZ6VSU33OGXQ3HCALUVX23HM7BRXMAOUBGBEMPK4TJOIQO"
+
+# Set local installer location
+oneagent_local_installer: ""
+
+# Set the OneAgent download directory
+oneagent_installer_path: "/tmp/dynatrace_oneagent_installer_latest.sh"
+
+# Set remote node path to save oneagent
+oneagent_installer_remotenode_path: "/opt/dynatrace_oneagent_installer_latest.sh"
+
+# Set host-group
+group_name: "{{ group_names | first }}"
+
+# Set monitoring-mode [infra-only, fullstack, discovery]
+monitoring_mode: "infra-only"

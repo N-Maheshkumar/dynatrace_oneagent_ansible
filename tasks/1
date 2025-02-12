@@ -1,0 +1,27 @@
+---
+- name: Uninstall Dynatrace OneAgent
+  hosts: all
+  become: yes
+  tasks:
+    - name: Stop OneAgent service
+      command: /opt/dynatrace/oneagent/agent/initscripts/oneagent stop
+      ignore_errors: yes
+
+    - name: Run uninstallation script
+      command: /opt/dynatrace/oneagent/agent/uninstall.sh
+      ignore_errors: yes
+
+    - name: Remove log directory
+      file:
+        path: /var/log/dynatrace
+        state: absent
+
+    - name: Remove lib directory
+      file:
+        path: /var/lib/dynatrace
+        state: absent
+
+    - name: Remove installation directory
+      file:
+        path: /opt/dynatrace
+        state: absent

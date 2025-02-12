@@ -1,0 +1,30 @@
+---
+- name: Change ownership of the OneAgent installer
+  ansible.builtin.file:
+    path: "{{ oneagent_installer_remotenode_path }}"
+    owner: root
+    group: root
+
+- name: Make the installer executable
+  ansible.builtin.file:
+    path: "{{ oneagent_installer_remotenode_path }}"
+    mode: '0755'
+
+- name: Run OneAgent installer with dynamic host group
+  ansible.builtin.command:
+    cmd: >
+      {{ oneagent_installer_remotenode_path }}
+      --set-host-group={{ group_name }}
+      --set-monitoring-mode={{ monitoring_mode }}
+  register: install_output
+#  changed_when: "'Dynatrace OneAgent installation successful' in install_output.stdout"
+
+- name: Verify installation
+  ansible.builtin.command:
+    cmd: /opt/dynatrace/oneagent/agent/initscripts/oneagent status
+  register: install_status
+  ignore_errors: yes
+
+- name: Show installation status
+  ansible.builtin.debug:
+    msg: "Installation status for {{ inventory_hostname }}: {{ install_status.stdout }}"

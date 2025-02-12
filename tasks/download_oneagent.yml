@@ -1,0 +1,22 @@
+---
+- name: Checking whether dynatrace installer available under /tmp path in localhost
+  stat:
+    path: "{{ oneagent_installer_path }}"
+  delegate_to: localhost
+  register: agent_installer_file
+
+- name: Debug Installer Path
+  debug:
+    var: agent_installer_file.stat.exists
+
+- name: Downloading oneagent ....
+  ansible.builtin.get_url:
+    url: "{{ oneagent_environment_url }}"
+    dest: "{{ oneagent_installer_path }}"
+    mode: "0755"
+    headers:
+      Authorization: "{{ oneagent_token }}"
+  no_log: false
+  ignore_errors: true
+  delegate_to: localhost
+  when: not agent_installer_file.stat.exists
